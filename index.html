@@ -983,7 +983,8 @@
        ====================================== -->
   <div class="tabs-wrap">
     <div class="tabs">
-      <button class="tab-btn active" data-tab="cores">Cores</button>
+      <button class="tab-btn active" data-tab="logo">Logo</button>
+      <button class="tab-btn" data-tab="cores">Cores</button>
       <button class="tab-btn" data-tab="tipografia">Tipografia</button>
       <button class="tab-btn" data-tab="botoes">Botoes</button>
       <button class="tab-btn" data-tab="cards">Cards</button>
@@ -1000,9 +1001,89 @@
   <main class="container">
 
     <!-- ======================================
+         TAB: LOGO
+         ====================================== -->
+    <section class="tab-panel active" id="logo">
+      <span class="section-label">Identidade Visual</span>
+      <h2 class="section-title">Logo Bella Vita</h2>
+      <p style="color:#6B5E57; margin-bottom:40px; max-width:640px;">O simbolo da Bella Vita e um <strong>triskelion</strong> (espiral tripla) que representa movimento, renovacao e equilibrio — conceitos centrais da estetica integrada.</p>
+
+      <!-- Logo principal: Selo -->
+      <div style="text-align:center; margin-bottom:48px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Logo Principal — Selo</div>
+        <div style="background:#FAF7F4; border:1px solid rgba(110,73,54,0.08); border-radius:20px; padding:48px; display:inline-block;">
+          <img src="logos/logo-selo-marrom.png" alt="Bella Vita Selo" style="height:180px;">
+        </div>
+        <p style="font-size:13px; color:#6B5E57; margin-top:12px;">Uso: redes sociais, avatar, favicon, materiais impressos</p>
+      </div>
+
+      <!-- Variações em grid -->
+      <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Variacoes</div>
+      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:24px; margin-bottom:48px;">
+
+        <!-- Horizontal marrom -->
+        <div style="background:#FAF7F4; border:1px solid rgba(110,73,54,0.08); border-radius:16px; padding:40px; text-align:center;">
+          <img src="logos/logo-horizontal-marrom.png" alt="Logo horizontal marrom" style="height:56px; margin-bottom:16px;">
+          <div style="font-family:'Poppins'; font-size:13px; font-weight:500; color:#5A3A2A;">Horizontal — Marrom</div>
+          <div style="font-family:'Poppins'; font-size:12px; color:#6B5E57;">Navbar, footer, fundos claros</div>
+        </div>
+
+        <!-- Vertical marrom -->
+        <div style="background:#FAF7F4; border:1px solid rgba(110,73,54,0.08); border-radius:16px; padding:40px; text-align:center;">
+          <img src="logos/logo-vertical-marrom.png" alt="Logo vertical marrom" style="height:100px; margin-bottom:16px;">
+          <div style="font-family:'Poppins'; font-size:13px; font-weight:500; color:#5A3A2A;">Vertical — Marrom</div>
+          <div style="font-family:'Poppins'; font-size:12px; color:#6B5E57;">Hero, apresentacoes, materiais</div>
+        </div>
+
+        <!-- Horizontal sobre fundo escuro -->
+        <div style="background:#6E4936; border-radius:16px; padding:40px; text-align:center;">
+          <img src="logos/logo-horizontal-marrom.png" alt="Logo horizontal branco" style="height:56px; margin-bottom:16px; filter:brightness(0) invert(1);">
+          <div style="font-family:'Poppins'; font-size:13px; font-weight:500; color:#FAF7F4;">Horizontal — Branco</div>
+          <div style="font-family:'Poppins'; font-size:12px; color:rgba(250,247,244,0.7);">Fundos marrom, hero com overlay</div>
+        </div>
+
+        <!-- Selo sobre fundo escuro -->
+        <div style="background:#5A3A2A; border-radius:16px; padding:40px; text-align:center;">
+          <img src="logos/logo-selo-marrom.png" alt="Selo branco" style="height:100px; margin-bottom:16px; filter:brightness(0) invert(1);">
+          <div style="font-family:'Poppins'; font-size:13px; font-weight:500; color:#FAF7F4;">Selo — Branco</div>
+          <div style="font-family:'Poppins'; font-size:12px; color:rgba(250,247,244,0.7);">Fundos escuros, watermark</div>
+        </div>
+      </div>
+
+      <!-- Regras de uso -->
+      <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Regras de Uso</div>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;">
+        <div style="background:#FAF7F4; border:1px solid rgba(110,73,54,0.08); border-radius:12px; padding:24px;">
+          <div style="font-family:'Poppins'; font-size:14px; font-weight:600; color:#5A3A2A; margin-bottom:8px;">Area de respiro</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6;">Manter area de respiro minima ao redor do simbolo igual a metade da altura do triskelion.</div>
+        </div>
+        <div style="background:#FAF7F4; border:1px solid rgba(110,73,54,0.08); border-radius:12px; padding:24px;">
+          <div style="font-family:'Poppins'; font-size:14px; font-weight:600; color:#5A3A2A; margin-bottom:8px;">Tamanho minimo</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6;">Navbar: 48px de altura. Selo para avatar/favicon: minimo 32px. Nunca distorcer proporcionalmente.</div>
+        </div>
+        <div style="background:#FAF7F4; border:1px solid rgba(110,73,54,0.08); border-radius:12px; padding:24px;">
+          <div style="font-family:'Poppins'; font-size:14px; font-weight:600; color:#5A3A2A; margin-bottom:8px;">Cores permitidas</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6;">Marrom (#6E4936) sobre fundos claros. Branco (#FAF7F4) sobre fundos escuros. Nunca usar preto.</div>
+        </div>
+      </div>
+
+      <!-- Arquivos -->
+      <div style="margin-top:40px; background:#F5EDE7; border-radius:12px; padding:24px;">
+        <div style="font-family:'Poppins'; font-size:13px; font-weight:500; color:#5A3A2A; margin-bottom:8px;">Arquivos disponiveis</div>
+        <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.8;">
+          <code>logos/logo-selo-marrom.png</code> — Selo circular (uso principal)<br>
+          <code>logos/logo-horizontal-marrom.png</code> — Horizontal com simbolo + texto<br>
+          <code>logos/logo-vertical-marrom.png</code> — Vertical com simbolo em cima<br>
+          <code>logos/logo-vertical-branco.png</code> — Vertical versao branca<br>
+          <code>logos/logo-vertical-branco-2.png</code> — Vertical branca (variacao)
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================
          TAB: CORES
          ====================================== -->
-    <section class="tab-panel active" id="cores">
+    <section class="tab-panel" id="cores">
       <span class="section-label">Paleta</span>
       <h2 class="section-title">Cores</h2>
       <p class="section-desc">Nunca usar preto puro. Toda cor escura e marrom. Fundo nunca branco puro — usar #FAF7F4.</p>
@@ -1679,7 +1760,7 @@ backdrop-filter: blur(12px);
 border: 1px solid rgba(110,73,54,0.06);
 box-shadow: 0 2px 8px rgba(110,73,54,0.06);
 
-/* Logo: logo-horizontal-marrom.png, height 36px */
+/* Logo: logo-horizontal-marrom.png, height 48px */
 /* Links: Poppins 12px/500, uppercase, letter-spacing 0.5px, #6B5E57 */
 /* CTA: btn-primary pequeno (padding 10px 20px) */</div>
     </section>
@@ -1779,7 +1860,7 @@ padding: 56px 48px; border-radius: 16px; text-align: center;
         <!-- Grid 4 cols -->
         <div class="footer-grid">
           <div class="footer-col">
-            <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height: 32px; margin-bottom: 16px;">
+            <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height: 48px; margin-bottom: 16px;">
             <p style="font-size: 13px; color: var(--text); margin-bottom: 4px;">SHIS QI 11 Bloco F Sala 107</p>
             <p style="font-size: 13px; color: var(--text); margin-bottom: 16px;">Lago Sul, Brasilia - DF</p>
             <div class="footer-social">
@@ -2068,7 +2149,7 @@ padding: 80px 0 60px;
             <button class="ann-cta">AGENDAR</button>
           </div>
           <div class="nav-bar">
-            <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height: 36px;">
+            <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height: 48px;">
             <ul class="nav-links">
               <li><a href="#">Tratamentos</a></li>
               <li><a href="#">Sobre</a></li>
@@ -2153,7 +2234,7 @@ padding: 80px 0 60px;
           </div>
           <div class="footer-grid">
             <div class="footer-col">
-              <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height: 32px; margin-bottom: 16px;">
+              <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height: 48px; margin-bottom: 16px;">
               <p style="font-size: 13px; color: var(--text); margin-bottom: 4px;">SHIS QI 11 Bloco F Sala 107</p>
               <p style="font-size: 13px; color: var(--text);">Lago Sul, Brasilia - DF</p>
               <div class="footer-social" style="margin-top: 16px;">
