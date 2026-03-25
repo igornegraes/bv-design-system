@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bella Vita — Design System Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ========== NEOMETRIC FONT FACE ========== */
+  @font-face { font-family: 'Neometric'; src: url('fonts/Neometric-Hairline.otf') format('opentype'); font-weight: 100; font-style: normal; }
+  @font-face { font-family: 'Neometric'; src: url('fonts/Neometric-Light.otf') format('opentype'); font-weight: 300; font-style: normal; }
+  @font-face { font-family: 'Neometric'; src: url('fonts/Neometric-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; }
+  @font-face { font-family: 'Neometric'; src: url('fonts/Neometric-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; }
+  @font-face { font-family: 'Neometric'; src: url('fonts/Neometric-ExtraBold.otf') format('opentype'); font-weight: 800; font-style: normal; }
+  @font-face { font-family: 'Neometric Alt'; src: url('fonts/NeometricAlt-ExtraBold.otf') format('opentype'); font-weight: 800; font-style: normal; }
+
+  /* ========== RESET ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ========== TOKENS ATUAIS ========== */
+  :root {
+    /* Cores atuais */
+    --current-primary: #6E4936;
+    --current-secondary: #A16C4F;
+    --current-cta: #765446;
+    --current-text: #7A7A7A;
+    --current-bg: #FFFFFF;
+    --current-bege: #EEE5E0;
+    --current-azul: #C1E1E4;
+
+    /* Cores propostas */
+    --new-primary: #6E4936;
+    --new-primary-light: #8B6350;
+    --new-primary-dark: #5A3A2A;
+    --new-secondary: #A16C4F;
+    --new-text: #5A3A2A;
+    --new-text-muted: #6B5E57;
+    --new-bg: #FAF7F4;
+    --new-bg-cream: #F5EDE7;
+    --new-bg-warm: #EEE5E0;
+    --new-accent-rose: #D4A69A;
+    --new-accent-champagne: #E8D5C4;
+    --new-shadow-sm: 0 2px 8px rgba(110,73,54,0.08);
+    --new-shadow-md: 0 4px 16px rgba(110,73,54,0.12);
+    --new-shadow-lg: 0 8px 32px rgba(110,73,54,0.16);
+    --new-shadow-btn: 0 4px 12px rgba(118,84,70,0.25);
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background: #f0ebe6;
+  }
+
+  /* ========== LAYOUT ========== */
+  .page-header {
+    background: linear-gradient(135deg, #6E4936 0%, #A16C4F 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .page-header h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+  .page-header p { font-size: 14px; opacity: 0.85; }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: white;
+    border-bottom: 2px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab {
+    padding: 16px 32px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #7A7A7A;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+  }
+  .tab.active { color: #6E4936; border-bottom-color: #6E4936; }
+  .tab:hover { color: #6E4936; }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 40px 20px; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #A16C4F;
+    margin-bottom: 8px;
+  }
+  .section-heading {
+    font-size: 24px;
+    font-weight: 600;
+    color: #6E4936;
+    margin-bottom: 32px;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  .comparison-grid .col-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ========== CORES ========== */
+  .color-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .color-swatch {
+    width: 80px;
+    text-align: center;
+  }
+  .color-swatch .swatch {
+    width: 80px;
+    height: 60px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+    margin-bottom: 6px;
+  }
+  .color-swatch .label {
+    font-size: 10px;
+    color: #999;
+    line-height: 1.3;
+  }
+  .color-swatch .hex {
+    font-size: 11px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  /* ========== TIPOGRAFIA ========== */
+  .typo-sample { margin-bottom: 24px; }
+  .typo-sample .meta {
+    font-size: 10px;
+    color: #999;
+    margin-bottom: 4px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* ========== BOTOES ========== */
+  .btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 20px; }
+
+  .btn-current {
+    background-color: #765446;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 7px 15px 0 rgba(0,0,0,0.25);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-current:hover { opacity: 0.9; }
+
+  .btn-new-primary {
+    background-color: #6E4936;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(118,84,70,0.25);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-new-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(118,84,70,0.35);
+  }
+
+  .btn-new-secondary {
+    background-color: transparent;
+    color: #6E4936;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 27px;
+    border-radius: 50px;
+    border: 1.5px solid #6E4936;
+    box-shadow: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-new-secondary:hover {
+    background-color: #6E4936;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  .btn-new-ghost {
+    background: none;
+    border: none;
+    color: #6E4936;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px 16px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s;
+  }
+  .btn-new-ghost:hover { color: #5A3A2A; }
+  .btn-new-ghost .arrow { transition: transform 0.3s; }
+  .btn-new-ghost:hover .arrow { transform: translateX(4px); }
+
+  /* ========== CARDS ========== */
+  .card-current {
+    background: rgba(255,255,255,0.19);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(110,73,54,0.22);
+    border-radius: 5px;
+    box-shadow: -1px 10px 32px -13px rgba(0,0,0,0.5);
+    padding: 30px;
+    max-width: 340px;
+  }
+  .card-current .card-icon {
+    width: 60px;
+    height: 60px;
+    background: #6E4936;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+  }
+  .card-current h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #6E4936;
+    margin-bottom: 8px;
+  }
+  .card-current p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #7A7A7A;
+    line-height: 1.8;
+  }
+
+  .card-new {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(110,73,54,0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(110,73,54,0.12);
+    padding: 32px;
+    max-width: 340px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-new:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(110,73,54,0.18);
+  }
+  .card-new .card-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #6E4936 0%, #A16C4F 100%);
+    border-radius: 14px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+  }
+  .card-new h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #5A3A2A;
+    margin-bottom: 10px;
+  }
+  .card-new p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #6B5E57;
+    line-height: 1.7;
+  }
+
+  /* ========== HERO ========== */
+  .hero-current {
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                linear-gradient(135deg, #8B6350, #A16C4F);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    border-radius: 12px;
+    color: white;
+  }
+  .hero-current h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    -webkit-text-stroke: 0.5px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+  }
+  .hero-current p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 24px;
+  }
+
+  .hero-new {
+    background: linear-gradient(135deg, #FAF7F4 0%, #EEE5E0 50%, #E8D5C4 100%);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    padding: 60px 40px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-new::after {
+    content: '';
+    position: absolute;
+    right: -20%;
+    top: -20%;
+    width: 60%;
+    height: 140%;
+    background: linear-gradient(135deg, rgba(110,73,54,0.08), rgba(161,108,79,0.12));
+    border-radius: 50%;
+    filter: blur(60px);
+  }
+  .hero-new .hero-content { position: relative; z-index: 1; max-width: 560px; }
+  .hero-new .hero-badge {
+    display: inline-block;
+    font-family: 'Neometric', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #A16C4F;
+    margin-bottom: 20px;
+    padding: 6px 16px;
+    background: rgba(161,108,79,0.1);
+    border-radius: 50px;
+  }
+  .hero-new h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: #5A3A2A;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .hero-new p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #6B5E57;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  /* ========== NAVBAR ========== */
+  .navbar-demo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .navbar-current {
+    background: white;
+    border: 1px solid #eee;
+  }
+  .navbar-new {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(110,73,54,0.06);
+    box-shadow: 0 2px 8px rgba(110,73,54,0.06);
+  }
+  .navbar-logo {
+    font-weight: 700;
+    font-size: 18px;
+    color: #6E4936;
+  }
+  .navbar-links { display: flex; gap: 24px; }
+  .navbar-links a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .navbar-current .navbar-links a { font-family: 'Poppins', sans-serif; color: #A16C4F; }
+  .navbar-current .navbar-links a:hover { color: #6E4936; }
+  .navbar-new .navbar-links a { font-family: 'Poppins', sans-serif; color: #6B5E57; }
+  .navbar-new .navbar-links a:hover { color: #6E4936; }
+
+  /* ========== SECTION DEMOS ========== */
+  .section-demo {
+    padding: 60px 40px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+  .section-current-white { background: #fff; }
+  .section-current-bege { background: #EEE5E0; }
+  .section-new-white { background: #FAF7F4; }
+  .section-new-cream { background: #F5EDE7; }
+  .section-new-gradient { background: linear-gradient(180deg, #FAF7F4 0%, #F5EDE7 100%); }
+
+  /* ========== SHADOWS DEMO ========== */
+  .shadow-grid { display: flex; gap: 20px; flex-wrap: wrap; }
+  .shadow-box {
+    width: 120px;
+    height: 80px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #999;
+  }
+
+  /* ========== FOOTER DEMO ========== */
+  .footer-demo {
+    padding: 48px 40px 32px;
+    border-radius: 16px;
+    color: white;
+  }
+  .footer-current {
+    background: #A16C4F;
+  }
+  .footer-new {
+    background: #EEE5E0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  .footer-grid h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+  .footer-grid a {
+    display: block;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+  }
+  .footer-grid a:hover { color: white; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 20px;
+    font-size: 12px;
+    opacity: 0.6;
+  }
+  .footer-current .footer-grid h4 { font-family: 'Poppins', sans-serif; }
+  .footer-current .footer-grid a { font-family: 'Poppins', sans-serif; }
+  .footer-new .footer-grid h4 { font-family: 'Poppins', sans-serif; font-size: 16px; }
+  .footer-new .footer-grid a { font-family: 'Poppins', sans-serif; }
+
+  /* ========== CTA BANNER ========== */
+  .cta-banner {
+    padding: 48px 40px;
+    border-radius: 16px;
+    text-align: center;
+  }
+  .cta-current {
+    background: #6E4936;
+    color: white;
+  }
+  .cta-new {
+    background: linear-gradient(135deg, #6E4936 0%, #8B6350 50%, #A16C4F 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-new::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  }
+  .cta-banner h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .cta-banner p {
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 24px;
+  }
+  .cta-current h2 { font-family: 'Poppins', sans-serif; }
+  .cta-new h2 { font-family: 'Poppins', sans-serif; font-size: 32px; position: relative; }
+  .cta-new p { font-family: 'Poppins', sans-serif; position: relative; }
+
+  .btn-white {
+    background: white;
+    color: #6E4936;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  /* ========== TREATMENT GRID ========== */
+  .treatment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .treatment-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ========== BADGE ========== */
+  .badge-current {
+    display: inline-block;
+    background: #A16C4F;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 999px;
+  }
+  .badge-new {
+    display: inline-block;
+    background: rgba(161,108,79,0.12);
+    color: #A16C4F;
+    font-family: 'Neometric', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ========== DIVIDER ========== */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #A16C4F33, transparent);
+    margin: 60px 0;
+  }
+
+  /* ========== TOKEN TABLE ========== */
+  .token-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 32px;
+  }
+  .token-table th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    padding: 8px 12px;
+    border-bottom: 2px solid #eee;
+  }
+  .token-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+  }
+  .token-preview {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Bella Vita — Design System Preview</h1>
+  <p>Comparativo visual: Design Atual vs. Design Proposto</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="showPanel('cores')">Cores</button>
+  <button class="tab" onclick="showPanel('tipografia')">Tipografia</button>
+  <button class="tab" onclick="showPanel('botoes')">Botoes</button>
+  <button class="tab" onclick="showPanel('cards')">Cards</button>
+  <button class="tab" onclick="showPanel('hero')">Hero</button>
+  <button class="tab" onclick="showPanel('navbar')">Navbar</button>
+  <button class="tab" onclick="showPanel('cta')">CTA</button>
+  <button class="tab" onclick="showPanel('footer')">Footer</button>
+  <button class="tab" onclick="showPanel('sombras')">Sombras</button>
+  <button class="tab" onclick="showPanel('blog')">Blog</button>
+  <button class="tab" onclick="showPanel('homepage')">Homepage</button>
+</div>
+
+<!-- ==================== CORES ==================== -->
+<div class="panel active" id="panel-cores">
+  <div class="container">
+    <p class="section-title">Tokens</p>
+    <h2 class="section-heading">Paleta de Cores</h2>
+
+    <div class="comparison-grid">
+      <div>
+        <div class="col-label">Atual (Elementor) + Novas Adicoes</div>
+        <div class="color-grid">
+          <div class="color-swatch"><div class="swatch" style="background:#6E4936"></div><div class="hex">#6E4936</div><div class="label">Primary</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#5A3A2A"></div><div class="hex">#5A3A2A</div><div class="label">Primary Dark</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#A16C4F"></div><div class="hex">#A16C4F</div><div class="label">Secondary</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#765446"></div><div class="hex">#765446</div><div class="label">CTA</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#7A7A7A"></div><div class="hex">#7A7A7A</div><div class="label">Texto</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#6B5E57"></div><div class="hex">#6B5E57</div><div class="label">Texto Muted</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#FAF7F4"></div><div class="hex">#FAF7F4</div><div class="label">Fundo</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#F5EDE7"></div><div class="hex">#F5EDE7</div><div class="label">Cream</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#EEE5E0"></div><div class="hex">#EEE5E0</div><div class="label">Bege</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#C1E1E4"></div><div class="hex">#C1E1E4</div><div class="label">Azul</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="col-label">Proposto (Estendido)</div>
+        <div class="color-grid">
+          <div class="color-swatch"><div class="swatch" style="background:#6E4936"></div><div class="hex">#6E4936</div><div class="label">Primary</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#8B6350"></div><div class="hex">#8B6350</div><div class="label">Primary Light</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#5A3A2A"></div><div class="hex">#5A3A2A</div><div class="label">Primary Dark</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#A16C4F"></div><div class="hex">#A16C4F</div><div class="label">Secondary</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#D4A69A"></div><div class="hex">#D4A69A</div><div class="label">Rose</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#E8D5C4"></div><div class="hex">#E8D5C4</div><div class="label">Champagne</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#5A3A2A"></div><div class="hex">#5A3A2A</div><div class="label">Texto</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#6B5E57"></div><div class="hex">#6B5E57</div><div class="label">Texto Muted</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#FAF7F4"></div><div class="hex">#FAF7F4</div><div class="label">Fundo</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#F5EDE7"></div><div class="hex">#F5EDE7</div><div class="label">Cream</div></div>
+          <div class="color-swatch"><div class="swatch" style="background:#EEE5E0"></div><div class="hex">#EEE5E0</div><div class="label">Warm</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TIPOGRAFIA ==================== -->
+<div class="panel" id="panel-tipografia">
+  <div class="container">
+    <p class="section-title">Tokens</p>
+    <h2 class="section-heading">Tipografia</h2>
+
+    <!-- ATUAL -->
+    <div style="background:#fff; border-radius:16px; padding:40px; margin-bottom:40px; border:1px solid #eee;">
+      <div class="col-label" style="margin-bottom:24px;">Atual — Poppins Only (referencia)</div>
+      <div class="typo-sample">
+        <div class="meta">H1 — Poppins 46px / 400 / #6E4936</div>
+        <div style="font-family:'Poppins'; font-size:42px; font-weight:400; color:#6E4936;">Sua beleza, nossa arte</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H3 — Poppins 17px / 600 / #6E4936</div>
+        <div style="font-family:'Poppins'; font-size:17px; font-weight:600; color:#6E4936;">Bioestimulador de Colageno</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Body — Poppins 15px / 400 / #7A7A7A</div>
+        <div style="font-family:'Poppins'; font-size:15px; font-weight:400; color:#7A7A7A; line-height:2;">Tratamento que estimula a producao natural de colageno, devolvendo firmeza e vicao para a pele do rosto e corpo.</div>
+      </div>
+    </div>
+
+    <!-- OPCAO A -->
+    <div style="background:#FAF7F4; border-radius:16px; padding:40px; margin-bottom:40px; border:2px solid #D4A69A;">
+      <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao A</div>
+      <h3 style="font-family:'Poppins'; font-size:20px; font-weight:600; color:#5A3A2A; margin-bottom:4px;">Playfair Display + Poppins</h3>
+      <p style="font-size:12px; color:#999; margin-bottom:24px;">Serif de alto contraste nos headings. Transmite luxo editorial e sofisticacao. Muito usada por marcas de beleza premium (Chanel, Dior). Poppins fica no body para legibilidade.</p>
+
+      <div class="typo-sample">
+        <div class="meta">H1 — Playfair Display 44px / 700 / #5A3A2A</div>
+        <div style="font-family:'Playfair Display', serif; font-size:44px; font-weight:700; color:#5A3A2A; line-height:1.15;">Sua beleza, nossa arte</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H2 — Playfair Display 32px / 600 / #5A3A2A</div>
+        <div style="font-family:'Playfair Display', serif; font-size:32px; font-weight:600; color:#5A3A2A;">Tratamentos Faciais</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H3 — Playfair Display 22px / 600 / #5A3A2A</div>
+        <div style="font-family:'Playfair Display', serif; font-size:22px; font-weight:600; color:#5A3A2A;">Bioestimulador de Colageno</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Subtitulo/Badge — Neometric 11px / 500 / uppercase / letter-spacing 3px / #A16C4F</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F;">Estetica Integrada</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Body — Poppins 15px / 400 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:15px; font-weight:400; color:#6B5E57; line-height:1.7;">Tratamento que estimula a producao natural de colageno, devolvendo firmeza e vicao para a pele do rosto e corpo.</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Caption — Poppins 12px / 500 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#6B5E57;">Resultado em 30 a 90 dias</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Botao — Poppins 14px / 500</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block;">Agende sua consulta</a>
+      </div>
+
+      <!-- Mini hero preview -->
+      <div style="background: linear-gradient(135deg, #FAF7F4 0%, #EEE5E0 50%, #E8D5C4 100%); padding:48px 40px; border-radius:12px; margin-top:24px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Estetica Integrada</div>
+        <div style="font-family:'Playfair Display', serif; font-size:40px; font-weight:700; color:#5A3A2A; line-height:1.15; margin-bottom:16px;">Sua beleza merece<br>ciencia e cuidado</div>
+        <div style="font-family:'Poppins'; font-size:15px; color:#6B5E57; line-height:1.7; margin-bottom:24px; max-width:480px;">Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block; box-shadow:0 4px 12px rgba(118,84,70,0.25);">Agende sua consulta</a>
+      </div>
+    </div>
+
+    <!-- OPCAO B -->
+    <div style="background:#FAF7F4; border-radius:16px; padding:40px; margin-bottom:40px; border:2px solid #D4A69A;">
+      <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao B</div>
+      <h3 style="font-family:'Poppins'; font-size:20px; font-weight:600; color:#5A3A2A; margin-bottom:4px;">Lora + Poppins</h3>
+      <p style="font-size:12px; color:#999; margin-bottom:24px;">Serif contemporanea e acolhedora nos headings. Menos dramatica que Playfair — transmite confianca medica com elegancia. Tom mais acessivel, sem perder a sofisticacao. Muito usada em clinicas e spas de alto padrao.</p>
+
+      <div class="typo-sample">
+        <div class="meta">H1 — Lora 44px / 700 / #5A3A2A</div>
+        <div style="font-family:'Lora', serif; font-size:44px; font-weight:700; color:#5A3A2A; line-height:1.2;">Sua beleza, nossa arte</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H2 — Lora 32px / 600 / #5A3A2A</div>
+        <div style="font-family:'Lora', serif; font-size:32px; font-weight:600; color:#5A3A2A;">Tratamentos Faciais</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H3 — Lora 22px / 600 / #5A3A2A</div>
+        <div style="font-family:'Lora', serif; font-size:22px; font-weight:600; color:#5A3A2A;">Bioestimulador de Colageno</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Subtitulo/Badge — Neometric 11px / 500 / uppercase / letter-spacing 3px / #A16C4F</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F;">Estetica Integrada</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Body — Poppins 15px / 400 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:15px; font-weight:400; color:#6B5E57; line-height:1.7;">Tratamento que estimula a producao natural de colageno, devolvendo firmeza e vicao para a pele do rosto e corpo.</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Caption — Poppins 12px / 500 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#6B5E57;">Resultado em 30 a 90 dias</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Botao — Poppins 14px / 500</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block;">Agende sua consulta</a>
+      </div>
+
+      <!-- Mini hero preview -->
+      <div style="background: linear-gradient(135deg, #FAF7F4 0%, #EEE5E0 50%, #E8D5C4 100%); padding:48px 40px; border-radius:12px; margin-top:24px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Estetica Integrada</div>
+        <div style="font-family:'Lora', serif; font-size:40px; font-weight:700; color:#5A3A2A; line-height:1.2; margin-bottom:16px;">Sua beleza merece<br>ciencia e cuidado</div>
+        <div style="font-family:'Poppins'; font-size:15px; color:#6B5E57; line-height:1.7; margin-bottom:24px; max-width:480px;">Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block; box-shadow:0 4px 12px rgba(118,84,70,0.25);">Agende sua consulta</a>
+      </div>
+    </div>
+
+    <!-- OPCAO C -->
+    <div style="background:#FAF7F4; border-radius:16px; padding:40px; margin-bottom:40px; border:2px solid #D4A69A;">
+      <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao C</div>
+      <h3 style="font-family:'Poppins'; font-size:20px; font-weight:600; color:#5A3A2A; margin-bottom:4px;">Cormorant Garamond + Poppins</h3>
+      <p style="font-size:12px; color:#999; margin-bottom:24px;">Serif fina e delicada nos headings. A mais elegante das tres — remete a haute couture e dermatologia de luxo. Contraste maximo com Poppins. Ideal se o objetivo e parecer exclusiva e aspiracional.</p>
+
+      <div class="typo-sample">
+        <div class="meta">H1 — Cormorant Garamond 48px / 600 / #5A3A2A</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:48px; font-weight:600; color:#5A3A2A; line-height:1.15;">Sua beleza, nossa arte</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H2 — Cormorant Garamond 36px / 600 / #5A3A2A</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:36px; font-weight:600; color:#5A3A2A;">Tratamentos Faciais</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H3 — Cormorant Garamond 24px / 600 / #5A3A2A</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:24px; font-weight:600; color:#5A3A2A;">Bioestimulador de Colageno</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Subtitulo/Badge — Neometric 11px / 500 / uppercase / letter-spacing 3px / #A16C4F</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F;">Estetica Integrada</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Body — Poppins 15px / 400 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:15px; font-weight:400; color:#6B5E57; line-height:1.7;">Tratamento que estimula a producao natural de colageno, devolvendo firmeza e vicao para a pele do rosto e corpo.</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Caption — Poppins 12px / 500 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#6B5E57;">Resultado em 30 a 90 dias</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Botao — Poppins 14px / 500</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block;">Agende sua consulta</a>
+      </div>
+
+      <!-- Mini hero preview -->
+      <div style="background: linear-gradient(135deg, #FAF7F4 0%, #EEE5E0 50%, #E8D5C4 100%); padding:48px 40px; border-radius:12px; margin-top:24px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Estetica Integrada</div>
+        <div style="font-family:'Cormorant Garamond', serif; font-size:44px; font-weight:600; color:#5A3A2A; line-height:1.15; margin-bottom:16px;">Sua beleza merece<br>ciencia e cuidado</div>
+        <div style="font-family:'Poppins'; font-size:15px; color:#6B5E57; line-height:1.7; margin-bottom:24px; max-width:480px;">Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block; box-shadow:0 4px 12px rgba(118,84,70,0.25);">Agende sua consulta</a>
+      </div>
+    </div>
+
+    <!-- OPCAO D -->
+    <div style="background:#FAF7F4; border-radius:16px; padding:40px; margin-bottom:40px; border:2px solid #6E4936;">
+      <div class="col-label" style="margin-bottom:8px; color:#6E4936;">Opcao D — Recomendada</div>
+      <h3 style="font-family:'Poppins'; font-size:20px; font-weight:600; color:#5A3A2A; margin-bottom:4px;">Neometric (headings) + Poppins (body)</h3>
+      <p style="font-size:12px; color:#999; margin-bottom:24px;">A fonte que voces ja usam nas redes sociais. Geometrica premium com personalidade propria. Mantem consistencia entre redes e site. Neometric Medium/ExtraBold nos headings, Poppins no body e UI. Identidade unica que nenhum concorrente tem.</p>
+
+      <div class="typo-sample">
+        <div class="meta">H1 — Neometric ExtraBold 44px / 800 / #5A3A2A</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:44px; font-weight:800; color:#5A3A2A; line-height:1.1;">Sua beleza, nossa arte</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H2 — Neometric Medium 32px / 500 / #5A3A2A</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:32px; font-weight:500; color:#5A3A2A; line-height:1.2;">Tratamentos Faciais</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H3 — Neometric Medium 22px / 500 / #5A3A2A</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:22px; font-weight:500; color:#5A3A2A;">Bioestimulador de Colageno</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">H1 alternativo — Neometric Light 48px / 300 / #5A3A2A (elegante, fino)</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:48px; font-weight:300; color:#5A3A2A; line-height:1.1;">Sua beleza, nossa arte</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Display — Neometric Hairline 56px / 100 / #6E4936 (decorativo, hero)</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:56px; font-weight:100; color:#6E4936; line-height:1.0;">Estetica Integrada</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Subtitulo/Badge — Neometric 11px / 500 / uppercase / letter-spacing 3px / #A16C4F</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F;">Estetica Integrada</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Body — Poppins 15px / 400 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:15px; font-weight:400; color:#6B5E57; line-height:1.7;">Tratamento que estimula a producao natural de colageno, devolvendo firmeza e vicao para a pele do rosto e corpo.</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Caption — Poppins 12px / 500 / #6B5E57</div>
+        <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#6B5E57;">Resultado em 30 a 90 dias</div>
+      </div>
+      <div class="typo-sample">
+        <div class="meta">Botao — Poppins 14px / 500</div>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block;">Agende sua consulta</a>
+      </div>
+
+      <!-- Mini hero preview -->
+      <div style="background: linear-gradient(135deg, #FAF7F4 0%, #EEE5E0 50%, #E8D5C4 100%); padding:48px 40px; border-radius:12px; margin-top:24px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Estetica Integrada</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:42px; font-weight:800; color:#5A3A2A; line-height:1.1; margin-bottom:16px;">Sua beleza merece<br>ciencia e cuidado</div>
+        <div style="font-family:'Poppins'; font-size:15px; color:#6B5E57; line-height:1.7; margin-bottom:24px; max-width:480px;">Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</div>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#fff; padding:14px 28px; border-radius:50px; text-decoration:none; display:inline-block; box-shadow:0 4px 12px rgba(118,84,70,0.25);">Agende sua consulta</a>
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:transparent; color:#6E4936; padding:13px 27px; border-radius:50px; text-decoration:none; display:inline-block; border:1.5px solid #6E4936;">Conhecer tratamentos</a>
+        </div>
+      </div>
+
+      <!-- Card preview -->
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:24px;">
+        <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 16px rgba(110,73,54,0.12); padding:28px;">
+          <div style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:8px;">Harmonizacao Facial</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6;">Equilibrio natural nos tracos com tecnicas minimamente invasivas.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 16px rgba(110,73,54,0.12); padding:28px;">
+          <div style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:8px;">Bioestimuladores</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6;">Estimulo natural de colageno para firmeza progressiva.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 16px rgba(110,73,54,0.12); padding:28px;">
+          <div style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:8px;">Skincare Medico</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6;">Protocolos com ativos de alta performance.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUMO -->
+    <table class="token-table">
+      <thead>
+        <tr><th></th><th>Headings</th><th>Body / UI</th><th>Personalidade</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A</strong></td>
+          <td>Playfair Display 700</td>
+          <td>Poppins 400/500</td>
+          <td>Luxo editorial, alta moda</td>
+        </tr>
+        <tr>
+          <td><strong>B</strong></td>
+          <td>Lora 600/700</td>
+          <td>Poppins 400/500</td>
+          <td>Confianca medica, acolhimento</td>
+        </tr>
+        <tr>
+          <td><strong>C</strong></td>
+          <td>Cormorant Garamond 600</td>
+          <td>Poppins 400/500</td>
+          <td>Exclusividade, haute couture</td>
+        </tr>
+        <tr style="background:#FAF7F4;">
+          <td><strong style="color:#6E4936;">D</strong></td>
+          <td><strong>Neometric 500/800</strong></td>
+          <td>Poppins 400/500</td>
+          <td><strong>Identidade propria, consistencia redes + site</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ==================== BOTOES ==================== -->
+<div class="panel" id="panel-botoes">
+  <div class="container">
+    <p class="section-title">Componentes</p>
+    <h2 class="section-heading">Botoes</h2>
+
+    <div class="comparison-grid">
+      <div>
+        <div class="col-label">Atual</div>
+        <div class="btn-row">
+          <a href="#" class="btn-current">Agende sua consulta</a>
+        </div>
+        <div class="btn-row">
+          <a href="#" class="btn-current" style="font-size:12px; padding:8px 16px;">Saiba mais</a>
+        </div>
+        <p style="font-size:12px; color:#999; margin-top:12px;">
+          Unico estilo: pill, sombra pesada, sem hover especial
+        </p>
+      </div>
+
+      <div>
+        <div class="col-label">Proposto</div>
+        <div class="btn-row">
+          <a href="#" class="btn-new-primary">Agende sua consulta</a>
+        </div>
+        <div class="btn-row">
+          <a href="#" class="btn-new-secondary">Conhecer tratamentos</a>
+        </div>
+        <div class="btn-row">
+          <a href="#" class="btn-new-ghost">Saiba mais <span class="arrow">&rarr;</span></a>
+        </div>
+        <p style="font-size:12px; color:#999; margin-top:12px;">
+          3 variantes: primary (filled), secondary (outline), ghost (text)<br>
+          Hover: lift + sombra expandida
+        </p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-title">Badges</p>
+    <div class="comparison-grid" style="margin-top:20px;">
+      <div>
+        <div class="col-label">Atual</div>
+        <span class="badge-current">Facial</span>&nbsp;
+        <span class="badge-current">Corporal</span>&nbsp;
+        <span class="badge-current">Intimo</span>
+      </div>
+      <div>
+        <div class="col-label">Proposto</div>
+        <span class="badge-new">Facial</span>&nbsp;
+        <span class="badge-new">Corporal</span>&nbsp;
+        <span class="badge-new">Intimo</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CARDS ==================== -->
+<div class="panel" id="panel-cards">
+  <div class="container">
+    <p class="section-title">Componentes</p>
+    <h2 class="section-heading">Cards de Tratamento</h2>
+
+    <div class="comparison-grid">
+      <div>
+        <div class="col-label">Atual — Glass pesado, sombra forte</div>
+        <div style="background: linear-gradient(135deg, #8B6350, #A16C4F); padding: 40px; border-radius: 16px;">
+          <div class="card-current">
+            <div class="card-icon">&#10024;</div>
+            <h3>Bioestimulador de Colageno</h3>
+            <p>Estimula a producao natural de colageno, promovendo firmeza e rejuvenescimento da pele com resultados progressivos.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="col-label">Proposto — Glass refinado, sombra suave, hover lift</div>
+        <div style="background: linear-gradient(135deg, #F5EDE7, #EEE5E0); padding: 40px; border-radius: 16px;">
+          <div class="card-new">
+            <div class="card-icon">&#10024;</div>
+            <h3>Bioestimulador de Colageno</h3>
+            <p>Estimula a producao natural de colageno, promovendo firmeza e rejuvenescimento da pele com resultados progressivos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-title">Grid de Cards</p>
+    <h3 style="color:#6E4936; margin-bottom: 24px;">Proposto — 3 colunas com hover</h3>
+    <div style="background: linear-gradient(135deg, #FAF7F4, #F5EDE7); padding: 40px; border-radius: 16px;">
+      <div class="treatment-grid">
+        <div class="card-new">
+          <div class="card-icon">&#9728;</div>
+          <h3>Harmonizacao Facial</h3>
+          <p>Equilibrio e naturalidade nos tracos faciais com tecnicas minimamente invasivas.</p>
+        </div>
+        <div class="card-new">
+          <div class="card-icon">&#10024;</div>
+          <h3>Bioestimuladores</h3>
+          <p>Estimulo natural de colageno para firmeza e rejuvenescimento progressivo.</p>
+        </div>
+        <div class="card-new">
+          <div class="card-icon">&#9733;</div>
+          <h3>Skincare Medico</h3>
+          <p>Protocolos personalizados com ativos de alta performance para sua pele.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<div class="panel" id="panel-hero">
+  <div class="container">
+    <p class="section-title">Secoes</p>
+    <h2 class="section-heading">Hero Section</h2>
+
+    <div class="col-label" style="margin-bottom:16px;">Atual — Imagem escurecida + texto branco centralizado</div>
+    <div class="hero-current">
+      <div>
+        <h1>Sua beleza, nossa arte</h1>
+        <p>Estetica integrada com ciencia, tecnologia e cuidado.</p>
+        <a href="#" class="btn-current" style="background: white; color: #6E4936;">Agende sua consulta</a>
+      </div>
+    </div>
+
+    <div style="height: 40px;"></div>
+
+    <div class="col-label" style="margin-bottom:16px;">Proposto — Gradiente quente + tipografia serif + badge + botoes duplos</div>
+    <div class="hero-new">
+      <div class="hero-content">
+        <div class="hero-badge">Estetica Integrada</div>
+        <h1>Sua beleza merece ciencia e cuidado</h1>
+        <p>Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</p>
+        <div class="btn-row">
+          <a href="#" class="btn-new-primary">Agende sua consulta</a>
+          <a href="#" class="btn-new-secondary">Conhecer tratamentos</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 40px;"></div>
+
+    <!-- Hero B: Texto branco centralizado -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao B — Texto branco centralizado (com imagem de fundo)</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Hero classico com imagem escurecida e texto claro. Mais impactante visualmente, ideal para homepage com foto de ambiente da clinica.</p>
+    <div style="background:linear-gradient(135deg, rgba(90,58,42,0.7), rgba(110,73,54,0.6)), linear-gradient(135deg, #8B6350, #A16C4F); min-height:400px; display:flex; align-items:center; justify-content:center; text-align:center; padding:60px 40px; border-radius:16px; position:relative; overflow:hidden;">
+      <div style="position:relative; z-index:1; max-width:640px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:rgba(250,247,244,0.7); margin-bottom:20px;">Estetica Integrada</div>
+        <h1 style="font-family:'Neometric', sans-serif; font-size:48px; font-weight:300; color:#FAF7F4; line-height:1.1; margin-bottom:20px; letter-spacing:-1px;">Sua beleza merece ciencia e cuidado</h1>
+        <p style="font-family:'Poppins'; font-size:16px; color:rgba(250,247,244,0.85); line-height:1.7; margin-bottom:32px;">Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#FAF7F4; color:#6E4936; padding:14px 28px; border-radius:60px; text-decoration:none; box-shadow:0 4px 16px rgba(0,0,0,0.15);">Agende sua consulta</a>
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:transparent; color:#FAF7F4; padding:13px 27px; border-radius:60px; text-decoration:none; border:1.5px solid rgba(250,247,244,0.5);">Conhecer tratamentos</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resumo -->
+    <div style="margin-top:40px;">
+      <table class="token-table">
+        <thead><tr><th>Opcao</th><th>Background</th><th>Texto</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>Gradiente quente claro</td><td>Marrom escuro, alinhado esquerda</td><td>Paginas internas, tratamentos</td></tr>
+          <tr><td><strong>B</strong></td><td>Imagem + overlay escuro</td><td>Branco, centralizado</td><td>Homepage, impacto visual</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== NAVBAR ==================== -->
+<div class="panel" id="panel-navbar">
+  <div class="container">
+    <p class="section-title">Componentes</p>
+    <h2 class="section-heading">Navegacao</h2>
+
+    <div class="col-label" style="margin-bottom:16px;">Atual — Fundo branco solido</div>
+    <div class="navbar-demo navbar-current">
+      <div class="navbar-logo">Bella Vita</div>
+      <div class="navbar-links">
+        <a href="#">Home</a>
+        <a href="#">Tratamentos</a>
+        <a href="#">Equipe</a>
+        <a href="#">Blog</a>
+        <a href="#">Contato</a>
+      </div>
+      <a href="#" class="btn-current" style="font-size:12px; padding:8px 18px;">Agendar</a>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- OPCAO A: Glass blur (inspiracao Brivia) -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao A — Glass blur (Brivia-inspired)</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Fundo semitransparente com blur. Aparece ao rolar a pagina. Elegante e moderno, nao compete com o conteudo.</p>
+    <!-- Announcement bar -->
+    <div style="background:linear-gradient(135deg, rgba(110,73,54,0.85), rgba(161,108,79,0.75)); padding:8px 32px; border-radius:12px 12px 0 0; display:flex; justify-content:center; align-items:center; gap:16px;">
+      <span style="font-family:'Poppins'; font-size:13px; color:#FAF7F4;">Programa INTIMACY — Saude intima com tecnologia e privacidade</span>
+      <a href="#" style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(250,247,244,0.85); color:#6E4936; padding:4px 14px; border-radius:60px; text-decoration:none;">Saiba mais</a>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 32px; background:rgba(250,247,244,0.8); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.06); box-shadow:0 2px 8px rgba(110,73,54,0.06); border-radius:0 0 12px 12px;">
+      <div style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A;">Bella Vita</div>
+      <div style="display:flex; gap:28px;">
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Tratamentos</a>
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Equipe</a>
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Blog</a>
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Contato</a>
+      </div>
+      <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:10px 20px; border-radius:60px; text-decoration:none; box-shadow:0 4px 12px rgba(110,73,54,0.2);">Agendar</a>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- OPCAO B: Minimal clean -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao B — Minimal clean + logo destaque</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Logo Neometric grande a esquerda, links discretos a direita. Sem CTA na nav — foco na navegacao limpa. Linha fina como separador.</p>
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 32px; background:#FAF7F4; border-bottom:1px solid rgba(110,73,54,0.1); border-radius:12px;">
+      <div style="font-family:'Neometric', sans-serif; font-size:26px; font-weight:800; color:#5A3A2A; letter-spacing:-0.5px;">BELLA VITA</div>
+      <div style="display:flex; gap:32px; align-items:center;">
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:400; color:#6B5E57; text-decoration:none; transition:color 0.3s;">Tratamentos</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:400; color:#6B5E57; text-decoration:none;">Equipe</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:400; color:#6B5E57; text-decoration:none;">Blog</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:400; color:#6B5E57; text-decoration:none;">Contato</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:500; color:#6E4936; text-decoration:none; border-bottom:1.5px solid #6E4936; padding-bottom:2px;">Agendar</a>
+      </div>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- OPCAO C: Warm com accent bar -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao C — Warm bar + CTA destaque</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Fundo bege quente (#F5EDE7) com contraste no CTA. Links em Neometric uppercase. Mais envolvente e coeso com a paleta da marca.</p>
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 32px; background:#F5EDE7; border-radius:12px; box-shadow:0 2px 8px rgba(110,73,54,0.06);">
+      <div style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A;">Bella Vita</div>
+      <div style="display:flex; gap:24px;">
+        <a href="#" style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:#5A3A2A; text-decoration:none;">Tratamentos</a>
+        <a href="#" style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:#5A3A2A; text-decoration:none;">Equipe</a>
+        <a href="#" style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:#5A3A2A; text-decoration:none;">Blog</a>
+        <a href="#" style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:2px; color:#5A3A2A; text-decoration:none;">Contato</a>
+      </div>
+      <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:10px 22px; border-radius:60px; text-decoration:none; box-shadow:0 4px 12px rgba(110,73,54,0.25); display:inline-flex; align-items:center; gap:8px;">Agendar</a>
+    </div>
+
+    <!-- Resumo -->
+    <div style="margin-top:40px;">
+      <table class="token-table">
+        <thead><tr><th>Opcao</th><th>Background</th><th>Links</th><th>Diferencial</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>Glass blur rgba(250,247,244,0.8)</td><td>Poppins uppercase</td><td>Announcement bar + glass blur</td></tr>
+          <tr><td><strong>B</strong></td><td>Off-white solido</td><td>Poppins regular</td><td>Logo BELLA VITA ExtraBold, minimalista</td></tr>
+          <tr><td><strong>C</strong></td><td>Bege quente #F5EDE7</td><td>Neometric uppercase</td><td>Coeso com paleta, nav como parte do design</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CTA ==================== -->
+<div class="panel" id="panel-cta">
+  <div class="container">
+    <p class="section-title">Secoes</p>
+    <h2 class="section-heading">CTA Banner</h2>
+
+    <div class="col-label" style="margin-bottom:16px;">Atual — Cor solida</div>
+    <div class="cta-banner cta-current">
+      <h2 style="font-family:'Poppins';">Agende sua avaliacao</h2>
+      <p style="font-family:'Poppins';">Descubra o tratamento ideal para voce com nossos especialistas.</p>
+      <a href="#" class="btn-current" style="background:white; color:#6E4936; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Falar no WhatsApp</a>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- CTA A: Gradiente quente centralizado -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao A — Gradiente quente + glow</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Gradiente marrom suave com radial glow. Texto claro, CTA branco. Classico e seguro.</p>
+    <div style="background:linear-gradient(135deg, #6E4936 0%, #8B6350 50%, #A16C4F 100%); padding:56px 40px; border-radius:16px; text-align:center; position:relative; overflow:hidden;">
+      <div style="position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);"></div>
+      <h2 style="font-family:'Neometric', sans-serif; font-size:36px; font-weight:300; color:#FAF7F4; margin-bottom:12px; position:relative;">Pronta para transformar sua autoestima?</h2>
+      <p style="font-family:'Poppins'; font-size:15px; color:rgba(250,247,244,0.8); margin-bottom:28px; position:relative;">Agende uma avaliacao e descubra o protocolo ideal para voce.</p>
+      <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#FAF7F4; color:#6E4936; padding:14px 28px; border-radius:60px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 16px rgba(0,0,0,0.1); position:relative; transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 16px rgba(0,0,0,0.1)';">Falar no WhatsApp</a>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- CTA B: Split layout (Brivia-inspired) -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao B — Split layout (Brivia-inspired)</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Texto a esquerda, CTA a direita. Fundo bege quente. Mais editorial, menos "banner gritante".</p>
+    <div style="background:#F5EDE7; padding:56px 48px; border-radius:16px; display:flex; align-items:center; justify-content:space-between; gap:40px;">
+      <div style="max-width:520px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:12px;">Agende sua avaliacao</div>
+        <h2 style="font-family:'Neometric', sans-serif; font-size:34px; font-weight:300; color:#5A3A2A; line-height:1.2; margin-bottom:12px;">Descubra o tratamento ideal para voce</h2>
+        <p style="font-family:'Poppins'; font-size:15px; color:#6B5E57; line-height:1.7;">Nossos especialistas criam protocolos personalizados que respeitam a individualidade de cada paciente.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; flex-shrink:0;">
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:14px 28px; border-radius:60px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(110,73,54,0.25); transition:all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';">WhatsApp</a>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:transparent; color:#6E4936; padding:13px 27px; border-radius:60px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; border:1.5px solid #6E4936; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4';" onmouseout="this.style.background='transparent'; this.style.color='#6E4936';">Ligar agora</a>
+      </div>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- CTA C: Minimal com linha -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao C — Minimal editorial</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Titulo grande light, linha separadora, CTA discreto. Sem fundo colorido — vive no fluxo da pagina. Inspirado no estilo editorial da Brivia.</p>
+    <div style="padding:56px 48px; border-radius:16px; background:#FAF7F4; text-align:center;">
+      <div style="font-family:'Neometric', sans-serif; font-size:48px; font-weight:300; color:#5A3A2A; line-height:1.1; margin-bottom:16px; letter-spacing:-1px;">Sua beleza merece<br>ciencia e cuidado</div>
+      <div style="width:60px; height:1.5px; background:#A16C4F; margin:24px auto;"></div>
+      <p style="font-family:'Poppins'; font-size:15px; color:#6B5E57; margin-bottom:28px;">Agende uma avaliacao com nossos especialistas.</p>
+      <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:14px 32px; border-radius:60px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(110,73,54,0.25);">Agende sua consulta</a>
+    </div>
+
+    <!-- Resumo -->
+    <div style="margin-top:40px;">
+      <table class="token-table">
+        <thead><tr><th>Opcao</th><th>Layout</th><th>Background</th><th>Tom</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A</strong></td><td>Centralizado</td><td>Gradiente marrom</td><td>Premium classico</td></tr>
+          <tr><td><strong>B</strong></td><td>Split (texto + CTAs)</td><td>Bege #F5EDE7</td><td>Editorial, dual CTA</td></tr>
+          <tr><td><strong>C</strong></td><td>Minimal centralizado</td><td>Off-white (no contrast)</td><td>Editorial discreto</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="panel" id="panel-footer">
+  <div class="container">
+    <p class="section-title">Secoes</p>
+    <h2 class="section-heading">Footer</h2>
+
+    <div class="col-label" style="margin-bottom:16px;">Atual — Fundo solido #A16C4F</div>
+    <div class="footer-demo footer-current">
+      <div class="footer-grid">
+        <div>
+          <h4>Bella Vita Estetica Integrada</h4>
+          <a href="#">SRTVS Quadra 701, Ed. Palacio do Radio I, Sala 620 — Asa Sul, Brasilia/DF</a>
+        </div>
+        <div>
+          <h4>Tratamentos</h4>
+          <a href="#">Facial</a>
+          <a href="#">Corporal</a>
+          <a href="#">Intimo</a>
+          <a href="#">Capilar</a>
+        </div>
+        <div>
+          <h4>Links</h4>
+          <a href="#">Blog</a>
+          <a href="#">Equipe</a>
+          <a href="#">Contato</a>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <a href="#">(61) 99129-4403</a>
+          <a href="#">@bellavitaintegrada</a>
+        </div>
+      </div>
+      <div class="footer-bottom">2026 Bella Vita Estetica Integrada. Todos os direitos reservados.</div>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <div class="col-label" style="margin-bottom:16px;">Proposto B — Fundo warm claro (inspirado Brivia)</div>
+    <div style="background:#EEE5E0; padding:48px 40px 32px; border-radius:16px; margin-bottom:32px;">
+      <div class="footer-grid">
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:22px; font-weight:500; color:#5A3A2A; margin-bottom:16px;">Bella Vita</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; line-height:1.7;">SRTVS Quadra 701, Ed. Palacio do Radio I, Sala 620 — Asa Sul, Brasilia/DF</a>
+        </div>
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Tratamentos</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Facial</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Corporal</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Intimo</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Capilar</a>
+        </div>
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Institucional</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Blog</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Equipe</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Sobre</a>
+        </div>
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Fale Conosco</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">(61) 99129-4403</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">@bellavitaintegrada</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(110,73,54,0.15); padding-top:20px; font-family:'Poppins'; font-size:12px; color:#A16C4F;">2026 Bella Vita Estetica Integrada. Todos os direitos reservados.</div>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- Footer D: Brivia-style — mesmo fundo do body + CTA integrado -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao D — Brivia-style (fundo integrado ao body)</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Footer sem contraste de fundo — vive no fluxo da pagina como na Brivia. Linha separadora sutil. Icones sociais. CTA final integrado.</p>
+    <div style="background:#FAF7F4; padding:48px 40px 32px; border-radius:16px; border-top:1px solid rgba(110,73,54,0.1);">
+      <!-- CTA inline no topo do footer -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; padding-bottom:32px; border-bottom:1px solid rgba(110,73,54,0.1);">
+        <div>
+          <div style="font-family:'Neometric', sans-serif; font-size:28px; font-weight:300; color:#5A3A2A; line-height:1.2;">Vamos conversar?</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; margin-top:4px;">Agende sua avaliacao com nossos especialistas.</div>
+        </div>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:12px 24px; border-radius:60px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:0 4px 12px rgba(110,73,54,0.2);">WhatsApp</a>
+      </div>
+      <div class="footer-grid">
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:16px;">Bella Vita</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; line-height:1.7; margin-bottom:16px;">SRTVS Quadra 701, Ed. Palacio do Radio I, Sala 620 — Asa Sul, Brasilia/DF</a>
+          <!-- Social icons -->
+          <div style="display:flex; gap:12px;">
+            <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(110,73,54,0.08); display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6E4936; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4';" onmouseout="this.style.background='rgba(110,73,54,0.08)'; this.style.color='#6E4936';">ig</a>
+            <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(110,73,54,0.08); display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6E4936; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4';" onmouseout="this.style.background='rgba(110,73,54,0.08)'; this.style.color='#6E4936';">wa</a>
+            <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(110,73,54,0.08); display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6E4936; font-size:14px; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4';" onmouseout="this.style.background='rgba(110,73,54,0.08)'; this.style.color='#6E4936';">fb</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Tratamentos</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Facial</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Corporal</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Intimo</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Capilar</a>
+        </div>
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Institucional</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Blog</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Equipe</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Sobre</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Politica de Privacidade</a>
+        </div>
+        <div>
+          <h4 style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Contato</h4>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">(61) 99129-4403</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">@bellavitaintegrada</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">contato@bellavitaintegrada.com.br</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(110,73,54,0.1); padding-top:20px; margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">2026 Bella Vita Estetica Integrada</span>
+        <span style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">SRTVS Qd 701, Sala 620 — Brasilia/DF</span>
+      </div>
+    </div>
+
+    <div style="height: 32px;"></div>
+
+    <!-- Footer E: Gradiente sutil bege → cream -->
+    <div class="col-label" style="margin-bottom:8px; color:#D4A69A;">Opcao E — Gradiente bege (transicao suave)</div>
+    <p style="font-size:12px; color:#999; margin-bottom:16px;">Gradiente sutil que "fecha" a pagina com mais calor. Logo grande Neometric light. Links organizados em horizontal no rodape.</p>
+    <div style="background:linear-gradient(180deg, #FAF7F4 0%, #EEE5E0 100%); padding:56px 40px 32px; border-radius:16px;">
+      <!-- Logo grande -->
+      <div style="text-align:center; margin-bottom:40px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:40px; font-weight:300; color:#5A3A2A; letter-spacing:-1px;">Bella Vita</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:4px; color:#A16C4F; margin-top:4px;">Estetica Integrada</div>
+      </div>
+      <!-- Links horizontal -->
+      <div style="display:flex; justify-content:center; gap:32px; flex-wrap:wrap; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid rgba(110,73,54,0.1);">
+        <a href="#" style="font-family:'Poppins'; font-size:13px; color:#6B5E57; text-decoration:none;">Tratamentos</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; color:#6B5E57; text-decoration:none;">Equipe</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; color:#6B5E57; text-decoration:none;">Blog</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; color:#6B5E57; text-decoration:none;">Sobre</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; color:#6B5E57; text-decoration:none;">Contato</a>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; color:#6B5E57; text-decoration:none;">Privacidade</a>
+      </div>
+      <!-- Endereco + social -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+        <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57;">SRTVS Quadra 701, Ed. Palacio do Radio I, Sala 620 — Asa Sul, Brasilia/DF</div>
+        <div style="display:flex; gap:12px;">
+          <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid rgba(110,73,54,0.15); display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6E4936; font-size:13px; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4'; this.style.borderColor='#6E4936';" onmouseout="this.style.background='transparent'; this.style.color='#6E4936'; this.style.borderColor='rgba(110,73,54,0.15)';">ig</a>
+          <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid rgba(110,73,54,0.15); display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6E4936; font-size:13px; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4'; this.style.borderColor='#6E4936';" onmouseout="this.style.background='transparent'; this.style.color='#6E4936'; this.style.borderColor='rgba(110,73,54,0.15)';">wa</a>
+          <a href="#" style="width:36px; height:36px; border-radius:50%; border:1px solid rgba(110,73,54,0.15); display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6E4936; font-size:13px; transition:all 0.3s;" onmouseover="this.style.background='#6E4936'; this.style.color='#FAF7F4'; this.style.borderColor='#6E4936';" onmouseout="this.style.background='transparent'; this.style.color='#6E4936'; this.style.borderColor='rgba(110,73,54,0.15)';">fb</a>
+        </div>
+      </div>
+      <!-- Copyright -->
+      <div style="text-align:center; font-family:'Poppins'; font-size:11px; color:#A16C4F;">2026 Bella Vita Estetica Integrada. Todos os direitos reservados.</div>
+    </div>
+
+    <!-- Resumo -->
+    <div style="margin-top:40px;">
+      <table class="token-table">
+        <thead><tr><th>Opcao</th><th>Background</th><th>Estrutura</th><th>Diferencial</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A (atual)</strong></td><td>#A16C4F solido</td><td>Grid 4 colunas</td><td>Contraste forte</td></tr>
+          <tr><td><strong>B</strong></td><td>#EEE5E0 warm</td><td>Grid 4 colunas</td><td>Quente, sem escuro</td></tr>
+          <tr><td><strong>D</strong></td><td>#FAF7F4 (body)</td><td>CTA topo + grid + social</td><td>Brivia-style, integrado ao fluxo</td></tr>
+          <tr><td><strong>E</strong></td><td>Gradiente bege</td><td>Logo central + links horizontal</td><td>Elegante, fecha a pagina</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SOMBRAS ==================== -->
+<div class="panel" id="panel-sombras">
+  <div class="container">
+    <p class="section-title">Tokens</p>
+    <h2 class="section-heading">Sombras e Border Radius</h2>
+
+    <div class="comparison-grid">
+      <div>
+        <div class="col-label">Atual</div>
+        <div class="shadow-grid">
+          <div class="shadow-box" style="box-shadow: -1px 10px 32px -13px rgba(0,0,0,0.5); border-radius: 5px;">
+            Cards<br><small>5px radius</small>
+          </div>
+          <div class="shadow-box" style="box-shadow: 0 7px 15px 0 rgba(0,0,0,0.25); border-radius: 50px; width: 160px;">
+            Botoes<br><small>50px radius</small>
+          </div>
+        </div>
+        <p style="font-size:12px; color:#999; margin-top:16px;">Sombras com preto puro, alta opacidade. Radius minimo nos cards.</p>
+      </div>
+      <div>
+        <div class="col-label">Proposto</div>
+        <div class="shadow-grid">
+          <div class="shadow-box" style="box-shadow: 0 2px 8px rgba(110,73,54,0.12); border-radius: 12px;">SM<br><small>12px</small></div>
+          <div class="shadow-box" style="box-shadow: 0 4px 20px rgba(110,73,54,0.16); border-radius: 16px;">MD<br><small>16px</small></div>
+          <div class="shadow-box" style="box-shadow: 0 8px 36px rgba(110,73,54,0.22); border-radius: 20px;">LG<br><small>20px</small></div>
+          <div class="shadow-box" style="box-shadow: 0 4px 16px rgba(118,84,70,0.3); border-radius: 50px; width: 160px;">Botao<br><small>pill</small></div>
+        </div>
+        <p style="font-size:12px; color:#999; margin-top:16px;">Sombras com tom marrom (nao preto), 3 niveis de intensidade. Opacidade aumentada para mais presenca.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BLOG / INSIGHTS ==================== -->
+<div class="panel" id="panel-blog">
+
+  <!-- Hero do Blog -->
+  <div style="background: linear-gradient(135deg, #FAF7F4 0%, #F5EDE7 40%, #EEE5E0 100%); padding: 80px 0 60px; position:relative; overflow:hidden;">
+    <!-- Gradient decorativo animado (inspiracao Brivia) -->
+    <div style="position:absolute; right:-10%; top:-20%; width:50%; height:140%; background: linear-gradient(135deg, rgba(212,166,154,0.3), rgba(161,108,79,0.15), rgba(110,73,54,0.1)); border-radius:50%; filter:blur(80px); animation: floatBlob 15s ease-in-out infinite;"></div>
+    <div style="max-width:1140px; margin:0 auto; padding:0 32px; position:relative; z-index:1;">
+      <div style="font-family:'Neometric', sans-serif; font-size:72px; font-weight:300; color:#5A3A2A; line-height:0.95; margin-bottom:24px; letter-spacing:-2px;">Blog</div>
+      <div style="font-family:'Poppins'; font-size:16px; color:#6B5E57; max-width:560px; line-height:1.7;">Conteudos sobre estetica, saude da pele, bem-estar e as tecnologias que usamos para transformar a sua autoestima.</div>
+    </div>
+  </div>
+
+  <div style="max-width:1140px; margin:0 auto; padding:40px 32px 60px;">
+
+    <!-- Sistema de Filtros (inspiracao Brivia) -->
+    <div style="display:flex; gap:48px; flex-wrap:wrap; margin-bottom:48px;">
+      <!-- Grupo 1: Categoria -->
+      <div>
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(110,73,54,0.15);">Categoria</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <!-- Ativo -->
+          <button style="font-family:'Poppins'; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding:8px 16px; border-radius:60px; border:1px solid #6E4936; background:#6E4936; color:#FAF7F4; cursor:pointer; transition:all 0.3s;">Tudo</button>
+          <!-- Inativos -->
+          <button style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; padding:8px 16px; border-radius:60px; border:1px solid #6E4936; background:transparent; color:#6E4936; cursor:pointer; transition:all 0.3s;">Facial</button>
+          <button style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; padding:8px 16px; border-radius:60px; border:1px solid #6E4936; background:transparent; color:#6E4936; cursor:pointer; transition:all 0.3s;">Corporal</button>
+          <button style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; padding:8px 16px; border-radius:60px; border:1px solid #6E4936; background:transparent; color:#6E4936; cursor:pointer; transition:all 0.3s;">Intimo</button>
+          <button style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; padding:8px 16px; border-radius:60px; border:1px solid #6E4936; background:transparent; color:#6E4936; cursor:pointer; transition:all 0.3s;">Capilar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de Cards do Blog (3 colunas, inspiracao Brivia) -->
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-bottom:48px;">
+
+      <!-- Card 1 -->
+      <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow: rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='rgba(110,73,54,0.06) 0px 2px 1px, rgba(110,73,54,0.08) 0px 4px 3px, rgba(110,73,54,0.1) 0px 8px 6px, rgba(110,73,54,0.12) 0px 16px 12px';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px';">
+        <!-- Imagem -->
+        <div style="width:100%; height:200px; background:linear-gradient(135deg, #EEE5E0, #D4A69A); position:relative;">
+          <div style="position:absolute; bottom:12px; left:12px;">
+            <span style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(110,73,54,0.85); color:#FAF7F4; padding:4px 12px; border-radius:60px;">Facial</span>
+          </div>
+        </div>
+        <!-- Conteudo -->
+        <div style="padding:24px;">
+          <div style="font-family:'Poppins'; font-size:12px; color:#A16C4F; margin-bottom:8px;">18 Mar 2026</div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:12px; line-height:1.3;">Bioestimuladores de Colageno: O Que Sao e Como Funcionam</h3>
+          <p style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">Entenda como os bioestimuladores atuam na producao natural de colageno, devolvendo firmeza e vicao para a pele de forma progressiva e natural.</p>
+          <!-- Autor -->
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(110,73,54,0.08);">
+            <div style="width:32px; height:32px; border-radius:50%; background:#A16C4F;"></div>
+            <div>
+              <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#5A3A2A;">Dra. Adriana Viana</div>
+              <div style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">Dermatologista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow: rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='rgba(110,73,54,0.06) 0px 2px 1px, rgba(110,73,54,0.08) 0px 4px 3px, rgba(110,73,54,0.1) 0px 8px 6px, rgba(110,73,54,0.12) 0px 16px 12px';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px';">
+        <div style="width:100%; height:200px; background:linear-gradient(135deg, #E8D5C4, #EEE5E0); position:relative;">
+          <div style="position:absolute; bottom:12px; left:12px;">
+            <span style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(110,73,54,0.85); color:#FAF7F4; padding:4px 12px; border-radius:60px;">Corporal</span>
+          </div>
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'Poppins'; font-size:12px; color:#A16C4F; margin-bottom:8px;">12 Mar 2026</div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:12px; line-height:1.3;">Criolipolise vs Lipoaspiracao: Qual a Melhor Opcao?</h3>
+          <p style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">Compare os dois tratamentos mais procurados para gordura localizada e descubra qual e o mais indicado para o seu caso.</p>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(110,73,54,0.08);">
+            <div style="width:32px; height:32px; border-radius:50%; background:#D4A69A;"></div>
+            <div>
+              <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#5A3A2A;">Dra. Camila Rocha</div>
+              <div style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">Estetica Corporal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow: rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='rgba(110,73,54,0.06) 0px 2px 1px, rgba(110,73,54,0.08) 0px 4px 3px, rgba(110,73,54,0.1) 0px 8px 6px, rgba(110,73,54,0.12) 0px 16px 12px';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px';">
+        <div style="width:100%; height:200px; background:linear-gradient(135deg, #D4A69A, #E8D5C4); position:relative;">
+          <div style="position:absolute; bottom:12px; left:12px;">
+            <span style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(110,73,54,0.85); color:#FAF7F4; padding:4px 12px; border-radius:60px;">Intimo</span>
+          </div>
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'Poppins'; font-size:12px; color:#A16C4F; margin-bottom:8px;">05 Mar 2026</div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:12px; line-height:1.3;">Saude Intima Feminina: Quando Procurar Tratamento</h3>
+          <p style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">Muitas mulheres sofrem em silencio com desconfortos intimos. Saiba quando e por que procurar ajuda especializada faz toda a diferenca.</p>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(110,73,54,0.08);">
+            <div style="width:32px; height:32px; border-radius:50%; background:#6E4936;"></div>
+            <div>
+              <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#5A3A2A;">Dra. Adriana Viana</div>
+              <div style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">Ginecologista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow: rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='rgba(110,73,54,0.06) 0px 2px 1px, rgba(110,73,54,0.08) 0px 4px 3px, rgba(110,73,54,0.1) 0px 8px 6px, rgba(110,73,54,0.12) 0px 16px 12px';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px';">
+        <div style="width:100%; height:200px; background:linear-gradient(135deg, #F5EDE7, #D4A69A); position:relative;">
+          <div style="position:absolute; bottom:12px; left:12px;">
+            <span style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(110,73,54,0.85); color:#FAF7F4; padding:4px 12px; border-radius:60px;">Facial</span>
+          </div>
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'Poppins'; font-size:12px; color:#A16C4F; margin-bottom:8px;">28 Fev 2026</div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:12px; line-height:1.3;">Skincare Medico: O Que Muda no Seu Protocolo Apos os 40</h3>
+          <p style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">A pele muda e o cuidado precisa acompanhar. Entenda quais ativos e procedimentos fazem diferenca real nessa fase.</p>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(110,73,54,0.08);">
+            <div style="width:32px; height:32px; border-radius:50%; background:#A16C4F;"></div>
+            <div>
+              <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#5A3A2A;">Dra. Adriana Viana</div>
+              <div style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">Dermatologista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow: rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='rgba(110,73,54,0.06) 0px 2px 1px, rgba(110,73,54,0.08) 0px 4px 3px, rgba(110,73,54,0.1) 0px 8px 6px, rgba(110,73,54,0.12) 0px 16px 12px';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px';">
+        <div style="width:100%; height:200px; background:linear-gradient(135deg, #EEE5E0, #E8D5C4); position:relative;">
+          <div style="position:absolute; bottom:12px; left:12px;">
+            <span style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(110,73,54,0.85); color:#FAF7F4; padding:4px 12px; border-radius:60px;">Capilar</span>
+          </div>
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'Poppins'; font-size:12px; color:#A16C4F; margin-bottom:8px;">20 Fev 2026</div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:12px; line-height:1.3;">Queda Capilar Feminina: Causas e Tratamentos Disponiveis</h3>
+          <p style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">A queda de cabelo afeta a autoestima de milhares de mulheres. Conheca as causas mais comuns e os tratamentos que realmente funcionam.</p>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(110,73,54,0.08);">
+            <div style="width:32px; height:32px; border-radius:50%; background:#D4A69A;"></div>
+            <div>
+              <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#5A3A2A;">Dr. Rafael Lima</div>
+              <div style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">Tricologista</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div style="background:#fff; border-radius:12px; overflow:hidden; box-shadow: rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); cursor:pointer;"
+           onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='rgba(110,73,54,0.06) 0px 2px 1px, rgba(110,73,54,0.08) 0px 4px 3px, rgba(110,73,54,0.1) 0px 8px 6px, rgba(110,73,54,0.12) 0px 16px 12px';"
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='rgba(110,73,54,0.04) 0px 1px 0.5px, rgba(110,73,54,0.05) 0px 2.3px 1.3px, rgba(110,73,54,0.06) 0px 4.4px 2.8px, rgba(110,73,54,0.07) 0px 8.4px 6.5px';">
+        <div style="width:100%; height:200px; background:linear-gradient(135deg, #D4A69A, #F5EDE7); position:relative;">
+          <div style="position:absolute; bottom:12px; left:12px;">
+            <span style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(110,73,54,0.85); color:#FAF7F4; padding:4px 12px; border-radius:60px;">Corporal</span>
+          </div>
+        </div>
+        <div style="padding:24px;">
+          <div style="font-family:'Poppins'; font-size:12px; color:#A16C4F; margin-bottom:8px;">14 Fev 2026</div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:12px; line-height:1.3;">Drenagem Linfatica: Beneficios Alem da Estetica</h3>
+          <p style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">Mais do que reduzir medidas, a drenagem linfatica e uma aliada da saude. Entenda como ela atua no corpo e quando e indicada.</p>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(110,73,54,0.08);">
+            <div style="width:32px; height:32px; border-radius:50%; background:#6E4936;"></div>
+            <div>
+              <div style="font-family:'Poppins'; font-size:12px; font-weight:500; color:#5A3A2A;">Dra. Camila Rocha</div>
+              <div style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">Estetica Corporal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Paginacao -->
+    <div style="display:flex; justify-content:center; align-items:center; gap:16px;">
+      <button style="font-family:'Poppins'; font-size:13px; font-weight:500; padding:10px 20px; border-radius:60px; border:1px solid #6E4936; background:transparent; color:#6E4936; cursor:pointer; transition:all 0.3s;">Anterior</button>
+      <span style="font-family:'Poppins'; font-size:13px; color:#6B5E57;">Pagina 1 de 4</span>
+      <button style="font-family:'Poppins'; font-size:13px; font-weight:500; padding:10px 20px; border-radius:60px; border:1px solid #6E4936; background:#6E4936; color:#FAF7F4; cursor:pointer; transition:all 0.3s;">Proximo</button>
+    </div>
+
+  </div>
+
+  <!-- Elementos adaptados da Brivia -->
+  <div style="max-width:1140px; margin:0 auto; padding:0 32px 60px;">
+    <div style="background:#F5EDE7; border-radius:16px; padding:32px;">
+      <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:16px;">Inspiracoes Brivia Adaptadas</div>
+      <table class="token-table">
+        <thead>
+          <tr><th>Elemento Brivia</th><th>Adaptacao Bella Vita</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Titulo hero 72px ultralight</td><td>Neometric Light 72px, letter-spacing -2px</td></tr>
+          <tr><td>Filtros pill com borda navy</td><td>Pill com borda #6E4936, ativo preenchido</td></tr>
+          <tr><td>Section label uppercase + linha</td><td>Neometric 11px uppercase + borda inferior #A16C4F</td></tr>
+          <tr><td>Cards sombra layered (4 camadas)</td><td>Sombra layered com tom marrom (nao preto)</td></tr>
+          <tr><td>Badge sobre imagem do card</td><td>Pill marrom translucido sobre imagem</td></tr>
+          <tr><td>Line-clamp 5 na descricao</td><td>Line-clamp 3 (cards menores, mais limpos)</td></tr>
+          <tr><td>Gradient decorativo animado</td><td>Blob tons rose/champagne com blur 80px</td></tr>
+          <tr><td>Hover: scale + sombra</td><td>translateY(-4px) + sombra expandida</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HOMEPAGE COMPLETA ==================== -->
+<div class="panel" id="panel-homepage">
+  <div class="container">
+    <p class="section-title">Composicao Final</p>
+    <h2 class="section-heading">Homepage — Componentes Aprovados</h2>
+    <p style="font-size:13px; color:#999; margin-bottom:32px;">Neometric + Poppins | Paleta marrom (zero preto) | Glass blur navbar | Cards refinados | Footer Brivia-style</p>
+  </div>
+
+  <div style="max-width:1200px; margin:0 auto; padding:0 20px 60px; background:#FAF7F4;">
+
+    <!-- Announcement bar -->
+    <div style="background:linear-gradient(135deg, rgba(110,73,54,0.85), rgba(161,108,79,0.75)); padding:8px 32px; border-radius:12px 12px 0 0; display:flex; justify-content:center; align-items:center; gap:16px;">
+      <span style="font-family:'Poppins'; font-size:13px; color:#FAF7F4;">Programa INTIMACY — Saude intima com tecnologia e privacidade</span>
+      <a href="#" style="font-family:'Poppins'; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(250,247,244,0.85); color:#6E4936; padding:4px 14px; border-radius:60px; text-decoration:none;">Saiba mais</a>
+    </div>
+
+    <!-- Nav: Glass blur (Opcao A aprovada) -->
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 32px; background:rgba(250,247,244,0.8); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.06); box-shadow:0 2px 8px rgba(110,73,54,0.06); border-radius:0 0 12px 12px;">
+      <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height:36px;">
+      <div style="display:flex; gap:28px;">
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Tratamentos</a>
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Equipe</a>
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Blog</a>
+        <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; color:#6B5E57; text-decoration:none;">Contato</a>
+      </div>
+      <a href="#" style="font-family:'Poppins'; font-size:12px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:10px 20px; border-radius:60px; text-decoration:none; box-shadow:0 4px 12px rgba(110,73,54,0.2);">Agendar</a>
+    </div>
+
+    <div style="height:24px;"></div>
+
+    <!-- Hero: Texto branco centralizado (Opcao B) -->
+    <div style="background:linear-gradient(135deg, rgba(90,58,42,0.7), rgba(110,73,54,0.6)), linear-gradient(135deg, #8B6350, #A16C4F); min-height:440px; display:flex; align-items:center; justify-content:center; text-align:center; padding:60px 40px; border-radius:16px; position:relative; overflow:hidden;">
+      <div style="position:relative; z-index:1; max-width:640px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:rgba(250,247,244,0.7); margin-bottom:20px;">Estetica Integrada</div>
+        <h1 style="font-family:'Neometric', sans-serif; font-size:48px; font-weight:300; color:#FAF7F4; line-height:1.1; margin-bottom:20px; letter-spacing:-1px;">Sua beleza merece ciencia e cuidado</h1>
+        <p style="font-family:'Poppins'; font-size:16px; color:rgba(250,247,244,0.85); line-height:1.7; margin-bottom:32px;">Tratamentos faciais, corporais e intimos com tecnologia de ponta e acompanhamento medico personalizado.</p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#FAF7F4; color:#6E4936; padding:14px 28px; border-radius:60px; text-decoration:none; box-shadow:0 4px 16px rgba(0,0,0,0.15);">Agende sua consulta</a>
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:transparent; color:#FAF7F4; padding:13px 27px; border-radius:60px; text-decoration:none; border:1.5px solid rgba(250,247,244,0.5);">Conhecer tratamentos</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:56px;"></div>
+
+    <!-- Diferenciais -->
+    <div style="text-align:center; margin-bottom:40px;">
+      <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:12px;">Por que a Bella Vita</div>
+      <div style="font-family:'Neometric', sans-serif; font-size:36px; font-weight:300; color:#5A3A2A; letter-spacing:-0.5px;">Cuidado que transforma</div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:56px;">
+      <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 20px rgba(110,73,54,0.16); padding:32px; text-align:center; transition:all 0.4s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 36px rgba(110,73,54,0.22)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(110,73,54,0.16)';">
+        <div style="width:56px; height:56px; background:linear-gradient(135deg, #6E4936 0%, #A16C4F 100%); border-radius:14px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; color:white; font-size:22px;">&#9733;</div>
+        <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:10px;">Equipe Medica</h3>
+        <p style="font-family:'Poppins'; font-size:14px; color:#6B5E57; line-height:1.7;">Profissionais especializados com formacao continua em estetica avancada.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 20px rgba(110,73,54,0.16); padding:32px; text-align:center; transition:all 0.4s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 36px rgba(110,73,54,0.22)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(110,73,54,0.16)';">
+        <div style="width:56px; height:56px; background:linear-gradient(135deg, #6E4936 0%, #A16C4F 100%); border-radius:14px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; color:white; font-size:22px;">&#10024;</div>
+        <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:10px;">Tecnologia</h3>
+        <p style="font-family:'Poppins'; font-size:14px; color:#6B5E57; line-height:1.7;">Equipamentos de ultima geracao para resultados seguros e eficazes.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 20px rgba(110,73,54,0.16); padding:32px; text-align:center; transition:all 0.4s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 8px 36px rgba(110,73,54,0.22)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(110,73,54,0.16)';">
+        <div style="width:56px; height:56px; background:linear-gradient(135deg, #6E4936 0%, #A16C4F 100%); border-radius:14px; margin:0 auto 20px; display:flex; align-items:center; justify-content:center; color:white; font-size:22px;">&#9825;</div>
+        <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:10px;">Cuidado Integral</h3>
+        <p style="font-family:'Poppins'; font-size:14px; color:#6B5E57; line-height:1.7;">Protocolos personalizados que respeitam a individualidade de cada paciente.</p>
+      </div>
+    </div>
+
+    <!-- Tratamentos -->
+    <div style="background:linear-gradient(180deg, #FAF7F4 0%, #F5EDE7 100%); padding:60px 40px; border-radius:20px; margin-bottom:56px;">
+      <div style="text-align:center; margin-bottom:40px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:12px;">Nossos Tratamentos</div>
+        <div style="font-family:'Neometric', sans-serif; font-size:36px; font-weight:300; color:#5A3A2A; letter-spacing:-0.5px;">Solucoes para cada necessidade</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 20px rgba(110,73,54,0.16); padding:32px; transition:all 0.4s;" onmouseover="this.style.transform='translateY(-4px)';" onmouseout="this.style.transform='translateY(0)';">
+          <div style="margin-bottom:12px;"><span style="display:inline-block; background:rgba(161,108,79,0.12); color:#A16C4F; font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; padding:5px 14px; border-radius:999px; letter-spacing:0.5px;">Facial</span></div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:10px;">Harmonizacao Facial</h3>
+          <p style="font-family:'Poppins'; font-size:14px; color:#6B5E57; line-height:1.7;">Equilibrio natural dos tracos com tecnicas minimamente invasivas e resultado sutil.</p>
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; color:#6E4936; text-decoration:none; display:inline-flex; align-items:center; gap:6px; margin-top:12px;">Saiba mais <span style="transition:transform 0.3s;">&rarr;</span></a>
+        </div>
+        <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 20px rgba(110,73,54,0.16); padding:32px; transition:all 0.4s;" onmouseover="this.style.transform='translateY(-4px)';" onmouseout="this.style.transform='translateY(0)';">
+          <div style="margin-bottom:12px;"><span style="display:inline-block; background:rgba(161,108,79,0.12); color:#A16C4F; font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; padding:5px 14px; border-radius:999px; letter-spacing:0.5px;">Corporal</span></div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:10px;">Criolipolise</h3>
+          <p style="font-family:'Poppins'; font-size:14px; color:#6B5E57; line-height:1.7;">Reducao de gordura localizada com tecnologia de resfriamento controlado e sem cirurgia.</p>
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; color:#6E4936; text-decoration:none; display:inline-flex; align-items:center; gap:6px; margin-top:12px;">Saiba mais <span>&rarr;</span></a>
+        </div>
+        <div style="background:rgba(255,255,255,0.6); backdrop-filter:blur(12px); border:1px solid rgba(110,73,54,0.08); border-radius:16px; box-shadow:0 4px 20px rgba(110,73,54,0.16); padding:32px; transition:all 0.4s;" onmouseover="this.style.transform='translateY(-4px)';" onmouseout="this.style.transform='translateY(0)';">
+          <div style="margin-bottom:12px;"><span style="display:inline-block; background:rgba(161,108,79,0.12); color:#A16C4F; font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; padding:5px 14px; border-radius:999px; letter-spacing:0.5px;">Intimo</span></div>
+          <h3 style="font-family:'Neometric', sans-serif; font-size:20px; font-weight:500; color:#5A3A2A; margin-bottom:10px;">Laser Intimo</h3>
+          <p style="font-family:'Poppins'; font-size:14px; color:#6B5E57; line-height:1.7;">Revitalizacao intima com laser de CO2 fracionado para saude e bem-estar feminino.</p>
+          <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; color:#6E4936; text-decoration:none; display:inline-flex; align-items:center; gap:6px; margin-top:12px;">Saiba mais <span>&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA: Split layout (Opcao B aprovada) -->
+    <div style="background:#F5EDE7; padding:56px 48px; border-radius:16px; display:flex; align-items:center; justify-content:space-between; gap:40px; margin-bottom:56px;">
+      <div style="max-width:520px;">
+        <div style="font-family:'Neometric', sans-serif; font-size:11px; font-weight:500; text-transform:uppercase; letter-spacing:3px; color:#A16C4F; margin-bottom:12px;">Agende sua avaliacao</div>
+        <h2 style="font-family:'Neometric', sans-serif; font-size:34px; font-weight:300; color:#5A3A2A; line-height:1.2; margin-bottom:12px;">Descubra o tratamento ideal para voce</h2>
+        <p style="font-family:'Poppins'; font-size:15px; color:#6B5E57; line-height:1.7;">Nossos especialistas criam protocolos personalizados que respeitam a individualidade de cada paciente.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px; flex-shrink:0;">
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:14px 28px; border-radius:60px; text-decoration:none; text-align:center; box-shadow:0 4px 16px rgba(110,73,54,0.3);">WhatsApp</a>
+        <a href="#" style="font-family:'Poppins'; font-size:14px; font-weight:500; background:transparent; color:#6E4936; padding:13px 27px; border-radius:60px; text-decoration:none; text-align:center; border:1.5px solid #6E4936;">Ligar agora</a>
+      </div>
+    </div>
+
+    <!-- Footer: Brivia-style (Opcao D aprovada) -->
+    <div style="background:#FAF7F4; padding:48px 40px 32px; border-radius:20px 20px 0 0; border-top:1px solid rgba(110,73,54,0.1);">
+      <!-- CTA inline -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; padding-bottom:32px; border-bottom:1px solid rgba(110,73,54,0.1);">
+        <div>
+          <div style="font-family:'Neometric', sans-serif; font-size:28px; font-weight:300; color:#5A3A2A; line-height:1.2;">Vamos conversar?</div>
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; margin-top:4px;">Agende sua avaliacao com nossos especialistas.</div>
+        </div>
+        <a href="#" style="font-family:'Poppins'; font-size:13px; font-weight:500; background:#6E4936; color:#FAF7F4; padding:12px 24px; border-radius:60px; text-decoration:none; box-shadow:0 4px 12px rgba(110,73,54,0.2);">WhatsApp</a>
+      </div>
+      <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:32px; margin-bottom:32px;">
+        <div>
+          <img src="logos/logo-horizontal-marrom.png" alt="Bella Vita" style="height:32px; margin-bottom:16px;">
+          <div style="font-family:'Poppins'; font-size:13px; color:#6B5E57; line-height:1.7; margin-bottom:16px;">SRTVS Quadra 701, Ed. Palacio do Radio I, Sala 620 — Asa Sul, Brasilia/DF</div>
+          <div style="display:flex; gap:12px;">
+            <span style="width:36px; height:36px; border-radius:50%; background:rgba(110,73,54,0.08); display:flex; align-items:center; justify-content:center; color:#6E4936; font-size:13px;">ig</span>
+            <span style="width:36px; height:36px; border-radius:50%; background:rgba(110,73,54,0.08); display:flex; align-items:center; justify-content:center; color:#6E4936; font-size:13px;">wa</span>
+            <span style="width:36px; height:36px; border-radius:50%; background:rgba(110,73,54,0.08); display:flex; align-items:center; justify-content:center; color:#6E4936; font-size:13px;">fb</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Tratamentos</div>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Facial</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Corporal</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Intimo</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Capilar</a>
+        </div>
+        <div>
+          <div style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Institucional</div>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Blog</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Equipe</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Sobre</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">Privacidade</a>
+        </div>
+        <div>
+          <div style="font-family:'Neometric', sans-serif; font-size:14px; font-weight:500; color:#5A3A2A; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px;">Contato</div>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">(61) 99129-4403</a>
+          <a href="#" style="display:block; color:#6B5E57; text-decoration:none; font-family:'Poppins'; font-size:13px; margin-bottom:8px;">@bellavitaintegrada</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(110,73,54,0.1); padding-top:20px; display:flex; justify-content:space-between;">
+        <span style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">2026 Bella Vita Estetica Integrada</span>
+        <span style="font-family:'Poppins'; font-size:11px; color:#A16C4F;">SRTVS Qd 701, Sala 620 — Brasilia/DF</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Blob animation */
+var style = document.createElement('style');
+style.textContent = '@keyframes floatBlob { 0% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -20px) scale(1.05); } 66% { transform: translate(-20px, 15px) scale(0.95); } 100% { transform: translate(0, 0) scale(1); } }';
+document.head.appendChild(style);
+
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
